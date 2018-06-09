@@ -12,6 +12,10 @@ typedef struct{
 
 	Vue_t *v; /*!< the vue of the app */
 	Modele_t *m; /*!< the modele of the app */
+	GtkWidget *spinBase[2];
+	GtkWidget *entryNumber;
+	GtkWidget *checkButtonMode[4];
+	GtkWidget *buttonConfirm;
 
 }Controleur_t;
 

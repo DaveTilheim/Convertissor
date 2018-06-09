@@ -11,6 +11,11 @@ typedef struct{
 
 	Modele_t *m; /*!< the modele of the app */
 	GtkWidget *window;
+	GtkWidget *vboxAll;
+	GtkWidget *tableBase;
+	GtkWidget *labelBase[2];
+	GtkWidget *labelEntryNumber;
+	GtkWidget *labelResult;
 	
 }Vue_t;
 
