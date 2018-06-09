@@ -86,6 +86,11 @@ static int convert_base10(Modele_t *m){
 	char *index = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int result = 0;
 	int factor = 0;
+	if(m->baseEntry == 10){
+		result = atoi(m->entryNumber);
+		itoa(result, m->result);
+		return 1;
+	}
 	for(int i = strlen(m->entryNumber)-1; i >= 0; i--){
 		for(int j = 0; j < strlen(index); j++){
 			if(m->entryNumber[i] == index[j] || m->entryNumber[i] == index[j]+32){
@@ -121,6 +126,10 @@ static void incr_str(Modele_t *m, char *str, int i, char *index){
 }
 
 static void convert_base10_basex(Modele_t *m){
+
+	if(m->baseDest == 10){
+		return;
+	}
 
 	char *index = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int res = atoi(m->result);
