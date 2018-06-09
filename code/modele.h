@@ -14,7 +14,7 @@ typedef struct{
 	unsigned short baseEntry;
 	unsigned short baseDest;
 	char entryNumber[MAXC+1];
-	char result[MAXC_R+1];
+	char result[MAXC_R*2+1];
 
 }Modele_t;
 

@@ -81,12 +81,10 @@ int set_entry_number(Modele_t *m, char *number){
 }
 
 
-static void convert_base10(Modele_t *m){
+static int convert_base10(Modele_t *m){
 
 	char *index = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	if(m->baseEntry == 10)
-		return;
-	unsigned int result = 0;
+	int result = 0;
 	int factor = 0;
 	for(int i = strlen(m->entryNumber)-1; i >= 0; i--){
 		for(int j = 0; j < strlen(index); j++){
@@ -97,12 +95,62 @@ static void convert_base10(Modele_t *m){
 		}
 		factor++;
 	}
+	if(result < 0)
+		return 0;
 	itoa(result, m->result);
+	return 1;
+	
+}
+
+
+static void incr_str(Modele_t *m, char *str, int i, char *index){
+	
+	
+	if(str[i] != index[m->baseDest]-1){
+		str[i]++;
+		if(m->baseDest > 10){
+			if(str[i] == ':')
+				str[i] = 'A';
+		}
+		return;
+	}
+	str[i] = '0';
+	
+	incr_str(m, str, i-1, index);
+	
+}
+
+static void convert_base10_basex(Modele_t *m){
+
+	char *index = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int res = atoi(m->result);
+	char new[MAXC_R*2+1];
+	strcpy(new,"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+	int i = strlen(new)-1;
+	while(res > 0){
+		incr_str(m, new, i, index);
+		res--;
+	}
+
+	int end = 0;
+	int oc = 0;
+	for(int i = 0; i < strlen(new); i++){
+		if(end == 0 && new[i] == '0'){
+			continue;
+		}
+		end = 1;
+		m->result[oc] = new[i];
+		oc++;
+	}
+	m->result[oc] = '\0';
+	
 }
 
 int operation(Modele_t *m){
 
-	convert_base10(m);
+	if(!convert_base10(m))
+		return 0;
+	convert_base10_basex(m);
 
 	return 1;
 }

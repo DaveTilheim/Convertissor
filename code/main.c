@@ -34,10 +34,6 @@ int main(int argc, char **argv){
 	gtk_table_attach(GTK_TABLE(v->tableBase), c->spinBase[1], 3,4, 0,1, FALSE, FALSE, 5,5);
 	gtk_table_attach(GTK_TABLE(v->tableBase), v->labelEntryNumber, 0,2, 1,2, FALSE, FALSE, 5,5);
 	gtk_table_attach(GTK_TABLE(v->tableBase), c->entryNumber, 2,4, 1,2, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->checkButtonMode[0], 0,1, 2,3, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->checkButtonMode[1], 1,2, 2,3, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->checkButtonMode[2], 2,3, 2,3, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->checkButtonMode[3], 3,4, 2,3, FALSE, FALSE, 5,5);
 	gtk_table_attach(GTK_TABLE(v->tableBase), c->buttonConfirm, 0,4, 3,4, FALSE, FALSE, 5,5);
 	gtk_table_attach(GTK_TABLE(v->tableBase), v->labelResult, 0,4, 4,5, FALSE, FALSE, 5,5);
 

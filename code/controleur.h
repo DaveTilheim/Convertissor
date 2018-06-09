@@ -15,7 +15,6 @@ typedef struct{
 	Modele_t *m; /*!< the modele of the app */
 	GtkWidget *spinBase[2];
 	GtkWidget *entryNumber;
-	GtkWidget *checkButtonMode[4];
 	GtkWidget *buttonConfirm;
 
 }Controleur_t;
