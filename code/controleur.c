@@ -5,7 +5,6 @@
 #include "modele.h"
 #include "vue.h"
 #include "controleur.h"
-#include "list.h"
 #include "util-gtk.h"
 
 

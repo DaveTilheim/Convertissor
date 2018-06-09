@@ -5,7 +5,6 @@
 #include <assert.h>
 #include "vue.h"
 #include "modele.h"
-#include "list.h"
 #include "util-gtk.h"
 
 

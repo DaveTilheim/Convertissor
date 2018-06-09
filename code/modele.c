@@ -4,9 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <time.h>
 #include <math.h>
-#include "list.h"
 #include "itoa.h"
 
 Modele_t *creer_modele(void){

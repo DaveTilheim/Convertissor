@@ -2,7 +2,6 @@
 #define __MODELE__
 
 
-#include "list.h"
 
 #define MAXC 10
 #define MAXC_R 100
