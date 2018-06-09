@@ -26,6 +26,7 @@ int main(int argc, char **argv){
 		destroy_vue(v);
 		return -1;
 	}
+	g_signal_connect(G_OBJECT(c->buttonConfirm), "clicked", G_CALLBACK(entry_base), c);
 
 	gtk_table_attach(GTK_TABLE(v->tableBase), v->labelBase[0], 0, 1, 0,1, FALSE, FALSE, 5,5);
 	gtk_table_attach(GTK_TABLE(v->tableBase), c->spinBase[0], 1,2, 0,1, FALSE, FALSE, 5,5);

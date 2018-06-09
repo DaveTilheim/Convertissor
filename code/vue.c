@@ -38,4 +38,7 @@ void destroy_vue(Vue_t *v){
 	free(v);
 }
 
+inline void set_result_label(Vue_t *v, char *str){
 
+	gtk_label_set_text(GTK_LABEL(v->labelResult), str);
+}

@@ -5,6 +5,7 @@
 #include "modele.h"
 #include "vue.h"
 
+
 /**
 @struct Controleur_t
 */
@@ -39,6 +40,8 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m);
 @post controleur destroyed
 */
 void destroy_controleur(Controleur_t *c);
+
+void entry_base(GtkWidget *widget, gpointer pData);
 
 
 #endif

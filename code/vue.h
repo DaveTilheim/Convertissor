@@ -38,5 +38,7 @@ Vue_t *creer_vue(Modele_t *m);
 */
 void destroy_vue(Vue_t *v);
 
+void set_result_label(Vue_t *v, char *str);
+
 
 #endif

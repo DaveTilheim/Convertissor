@@ -4,12 +4,17 @@
 
 #include "list.h"
 
+#define MAXC 10
+#define MAXC_R 100
 /**
 @struct Modele_t
 */
 typedef struct{
 
-	void *value;
+	unsigned short baseEntry;
+	unsigned short baseDest;
+	char entryNumber[MAXC+1];
+	char result[MAXC_R+1];
 
 }Modele_t;
 
@@ -28,5 +33,14 @@ Modele_t *creer_modele(void);
 @post modele destroy
 */
 void destroy_modele(Modele_t *m);
+
+void set_entry_base(Modele_t *m, unsigned short base);
+
+void set_dest_base(Modele_t *m, unsigned short base);
+
+int set_entry_number(Modele_t *m, char *number);
+
+int operation(Modele_t *m);
+
 
 #endif
