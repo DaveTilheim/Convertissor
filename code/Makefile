@@ -1,6 +1,6 @@
 CC=gcc
 LD=gcc
-CFLAGS=--std=c99 --pedantic -Wall -W -Wmissing-prototypes
+CFLAGS=
 GTKFLAGS=`pkg-config --cflags --libs gtk+-2.0`
 OBJ= list.o util-gtk.o controleur.o vue.o modele.o 
 HEAD= list.h util-gtk.h controleur.h vue.h modele.h 
@@ -41,6 +41,7 @@ tar:
 clean:
 	@rm -f *.o
 	@rm -f convertissor
+	@clear
 
 
 

@@ -18,6 +18,7 @@ Vue_t *creer_vue(Modele_t *m){
 	if(v == NULL)
 		return NULL;
 
+	v->window = create_window_with_title("title");
 	v->m = m;
 	
 	return v;

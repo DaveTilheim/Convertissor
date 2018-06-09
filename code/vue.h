@@ -10,6 +10,7 @@
 typedef struct{
 
 	Modele_t *m; /*!< the modele of the app */
+	GtkWidget *window;
 	
 }Vue_t;
 
