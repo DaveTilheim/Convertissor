@@ -1,19 +1,22 @@
 #ifndef __MODELE__
 #define __MODELE__
 
+#define MAX_VALUE 18446744073709551615
+#define MAX_BIT 64
+#define MAX_BASE 36
+#define MIN_BASE 2
+#define BASE36A "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define BASE36B "0123456789abcdefghijklmnopqrstuvwxyz"
 
-
-#define MAXC 10
-#define MAXC_R 100
 /**
 @struct Modele_t
 */
 typedef struct{
 
-	unsigned short baseEntry;
-	unsigned short baseDest;
-	char entryNumber[MAXC+1];
-	char result[MAXC_R*2+1];
+	unsigned short baseSrc : 6;
+	unsigned short baseDest : 6;
+	char numberToConvert[MAX_BIT+1];
+	char numberConvert[MAX_BIT+1];
 
 }Modele_t;
 
@@ -33,13 +36,9 @@ Modele_t *creer_modele(void);
 */
 void destroy_modele(Modele_t *m);
 
-void set_entry_base(Modele_t *m, unsigned short base);
-
-void set_dest_base(Modele_t *m, unsigned short base);
-
-int set_entry_number(Modele_t *m, char *number);
-
-int operation(Modele_t *m);
-
+void set_bases(Modele_t *m, unsigned srcv, unsigned destv);
+int set_number(Modele_t *m, char *number);
+int number_error(char *number);
+int run_convertion(Modele_t *m);
 
 #endif

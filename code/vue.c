@@ -5,6 +5,7 @@
 #include <assert.h>
 #include "vue.h"
 #include "modele.h"
+#include "controleur.h"
 #include "util-gtk.h"
 
 
@@ -16,19 +17,20 @@ Vue_t *creer_vue(Modele_t *m){
 	if(v == NULL)
 		return NULL;
 
+	v->window = create_window_with_title("convertissor");
 	v->m = m;
-	v->window = create_window_with_title("Convertisseur");
 	v->vboxAll = gtk_vbox_new(TRUE, 5);
-	v->tableBase = gtk_table_new(5,4,TRUE);
-	v->labelBase[0] = gtk_label_new("De la base ");
-	v->labelBase[1] = gtk_label_new("vers la base ");
-	v->labelEntryNumber = gtk_label_new("Entrez un nombre: ");
-	v->labelResult = gtk_label_new("[resultat]");
-
+	v->labelSrc = gtk_label_new("src base");
+	v->labelDest = gtk_label_new("dest base");
+	v->labelNumber = gtk_label_new("number to convert");
+	v->labelResult = gtk_label_new("result here");
 	
 	return v;
 }
 
+void set_message(Vue_t *v, char *message){
+	gtk_label_set_text(GTK_LABEL(v->labelResult), message);
+}
 
 void destroy_vue(Vue_t *v){
 
@@ -37,7 +39,4 @@ void destroy_vue(Vue_t *v){
 	free(v);
 }
 
-inline void set_result_label(Vue_t *v, char *str){
 
-	gtk_label_set_text(GTK_LABEL(v->labelResult), str);
-}

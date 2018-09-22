@@ -26,18 +26,11 @@ int main(int argc, char **argv){
 		destroy_vue(v);
 		return -1;
 	}
-	g_signal_connect(G_OBJECT(c->buttonConfirm), "clicked", G_CALLBACK(entry_base), c);
 
-	gtk_table_attach(GTK_TABLE(v->tableBase), v->labelBase[0], 0, 1, 0,1, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->spinBase[0], 1,2, 0,1, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), v->labelBase[1], 2,3, 0,1, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->spinBase[1], 3,4, 0,1, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), v->labelEntryNumber, 0,2, 1,2, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->entryNumber, 2,4, 1,2, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), c->buttonConfirm, 0,4, 3,4, FALSE, FALSE, 5,5);
-	gtk_table_attach(GTK_TABLE(v->tableBase), v->labelResult, 0,4, 4,5, FALSE, FALSE, 5,5);
-
-	fill_box(v->vboxAll, 1, v->tableBase);
+	g_signal_connect(G_OBJECT(c->buttonConvert), "clicked", G_CALLBACK(convert), c);
+	
+	fill_box(v->vboxAll, 9, v->labelSrc, c->spinSrcBase, v->labelDest, c->spinDestBase, 
+	v->labelNumber, c->entryNumber, gtk_hseparator_new(), c->buttonConvert, v->labelResult);
 	gtk_container_add(GTK_CONTAINER(v->window), v->vboxAll);
 	gtk_widget_show_all(v->window);
 

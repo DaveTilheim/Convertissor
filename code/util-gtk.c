@@ -31,5 +31,3 @@ GtkWidget *create_window_with_title(char *title){
 	
 	return window;
 }
-
-
