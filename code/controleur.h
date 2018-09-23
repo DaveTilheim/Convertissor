@@ -47,6 +47,8 @@ void select_base(GtkWidget *w, gpointer pData);
 void activate_numeric_button(GtkWidget *w, gpointer pData);
 void clear_numeric(GtkWidget *w, gpointer pData);
 void disable_part_of_numeric(GtkWidget *w, gpointer pData);
+void able_disable_clear(GtkWidget *w, gpointer pData);
+
 
 
 #endif

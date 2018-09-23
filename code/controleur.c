@@ -21,6 +21,7 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 	c->spinSrcBase = gtk_spin_button_new_with_range((float)MIN_BASE, (float)MAX_BASE, 1.0);
 	g_signal_connect(G_OBJECT(c->spinSrcBase), "value-changed", G_CALLBACK(disable_part_of_numeric), c);
 	c->entryNumber = gtk_entry_new_with_max_length(MAX_BIT);
+	g_signal_connect(G_OBJECT(c->entryNumber), "activate", G_CALLBACK(able_disable_clear), c);
 	c->buttonConvert = gtk_button_new_with_label("convert");
 	c->buttonQuit = gtk_button_new_with_label("QUIT");
 	for(int i = 0; i < MAX_BASE; i++){
@@ -41,8 +42,7 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 	c->buttonClearNumericNumber = gtk_button_new_with_label("clear");
 	g_signal_connect(G_OBJECT(c->buttonClearNumericNumber), "clicked", G_CALLBACK(clear_numeric), c);
 	fill_box(c->v->hboxNumericNumber, 1, c->buttonClearNumericNumber);
-	
-
+	gtk_widget_set_sensitive(c->buttonClearNumericNumber, FALSE);
 
 	return c;
 }
@@ -62,7 +62,10 @@ void convert(GtkWidget *w, gpointer pData){
 			set_message(c->v, "space in the number field");
 			fprintf(stderr, "\a");
 			return;
-
+		case 3:
+			set_message(c->v, "put a number");
+			fprintf(stderr, "\a");
+			return;
 		default:
 			break;
 	}
@@ -85,6 +88,7 @@ void select_base(GtkWidget *w, gpointer pData){
 
 void activate_numeric_button(GtkWidget *w, gpointer pData){
 	Controleur_t *c = (Controleur_t *) pData;
+	gtk_widget_set_sensitive(c->buttonClearNumericNumber, TRUE);
 	set_char_number(c->m, (char *)gtk_button_get_label(GTK_BUTTON(w)));
 	gtk_entry_set_text(GTK_ENTRY(c->entryNumber), c->m->numberToConvert);
 }
@@ -93,6 +97,7 @@ void clear_numeric(GtkWidget *w, gpointer pData){
 	Controleur_t *c = (Controleur_t *) pData;
 	strcpy(c->m->numberToConvert, "");
 	gtk_entry_set_text(GTK_ENTRY(c->entryNumber), "");
+	gtk_widget_set_sensitive(c->buttonClearNumericNumber, FALSE);
 }
 
 void destroy_controleur(Controleur_t *c){
@@ -111,6 +116,14 @@ void disable_part_of_numeric(GtkWidget *w, gpointer pData){
 	}
 }
 
+void able_disable_clear(GtkWidget *w, gpointer pData){
+	Controleur_t *c = (Controleur_t *) pData;
+	if(strlen((char*)gtk_entry_get_text(GTK_ENTRY(w)))<=0)
+		gtk_widget_set_sensitive(c->buttonClearNumericNumber, FALSE);
+	else
+		gtk_widget_set_sensitive(c->buttonClearNumericNumber, TRUE);
+
+}
 
 
 

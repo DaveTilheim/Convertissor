@@ -15,7 +15,6 @@ Modele_t *creer_modele(void){
 		return NULL;
 	m->baseDest = MIN_BASE;
 	m->baseSrc = MIN_BASE;
-
 	return m;
 }
 
@@ -26,6 +25,10 @@ void set_bases(Modele_t *m, unsigned srcv, unsigned destv){
 
 int number_error(char *number){
 	if(!strlen(number)) return 1;
+	int no0 = 0;
+	for(int i = 0; i < strlen(number); i++)
+		if(number[i] != '0') no0 = 1;
+	if(!no0) return 3;
 	for(int i = 0; i < strlen(number); i++)
 		if(number[i] == ' ') return 2;
 	return 0;
@@ -98,6 +101,7 @@ void set_char_number(Modele_t *m, char *c){
 	if(strlen(m->numberToConvert)+1 >= MAX_BIT-1) return;
 	strcat(m->numberToConvert, c);
 }
+
 
 void destroy_modele(Modele_t *m){
 	
