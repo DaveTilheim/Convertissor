@@ -94,6 +94,11 @@ int run_convertion(Modele_t *m){
 	return 1;
 }
 
+void set_char_number(Modele_t *m, char *c){
+	if(strlen(m->numberToConvert)+1 >= MAX_BIT-1) return;
+	strcat(m->numberToConvert, c);
+}
+
 void destroy_modele(Modele_t *m){
 	
 	assert(m != NULL);

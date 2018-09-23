@@ -22,6 +22,24 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 	c->entryNumber = gtk_entry_new_with_max_length(MAX_BIT);
 	c->buttonConvert = gtk_button_new_with_label("convert");
 	c->buttonQuit = gtk_button_new_with_label("QUIT");
+	for(int i = 0; i < MAX_BASE; i++){
+		char label[2];
+		if(i < 10) label[0] = '0'+i;
+		else label[0] = 'A'+i-10;
+		label[1] = '\0';
+		c->buttonNumericNumber[i] = gtk_button_new_with_label(label);
+		g_signal_connect(G_OBJECT(c->buttonNumericNumber[i]), "clicked", G_CALLBACK(activate_numeric_button), c);
+	}
+	int n = 0;
+	for(int i = 0; i < 6; i++){
+		for(int j = 0; j < 6; j++)
+			fill_box(c->v->vboxNumericNumber[i], 1, c->buttonNumericNumber[n++]);
+		fill_box(c->v->hboxNumericNumber, 1, c->v->vboxNumericNumber[i]);
+	}
+	c->buttonClearNumericNumber = gtk_button_new_with_label("clear");
+	g_signal_connect(G_OBJECT(c->buttonClearNumericNumber), "clicked", G_CALLBACK(clear_numeric), c);
+	fill_box(c->v->hboxNumericNumber, 1, c->buttonClearNumericNumber);
+	
 
 
 	return c;
@@ -58,6 +76,18 @@ void convert(GtkWidget *w, gpointer pData){
 void select_base(GtkWidget *w, gpointer pData){
 	Controleur_t *c = (Controleur_t *) pData;
 	set_message(c->v, (char*)gtk_button_get_label(GTK_BUTTON(w)));
+}
+
+void activate_numeric_button(GtkWidget *w, gpointer pData){
+	Controleur_t *c = (Controleur_t *) pData;
+	set_char_number(c->m, (char *)gtk_button_get_label(GTK_BUTTON(w)));
+	gtk_entry_set_text(GTK_ENTRY(c->entryNumber), c->m->numberToConvert);
+}
+
+void clear_numeric(GtkWidget *w, gpointer pData){
+	Controleur_t *c = (Controleur_t *) pData;
+	strcpy(c->m->numberToConvert, "");
+	gtk_entry_set_text(GTK_ENTRY(c->entryNumber), "");
 }
 
 void destroy_controleur(Controleur_t *c){

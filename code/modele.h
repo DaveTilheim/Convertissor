@@ -40,5 +40,6 @@ void set_bases(Modele_t *m, unsigned srcv, unsigned destv);
 int set_number(Modele_t *m, char *number);
 int number_error(char *number);
 int run_convertion(Modele_t *m);
+void set_char_number(Modele_t *m, char *c);
 
 #endif

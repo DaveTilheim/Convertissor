@@ -22,7 +22,7 @@ Vue_t *creer_vue(Modele_t *m){
 	v->vboxAll = gtk_vbox_new(FALSE, 0);
 	v->vboxWidget = gtk_vbox_new(TRUE, 5);
 	v->hboxWidget = gtk_hbox_new(FALSE, 0);
-	v->labelSrc = gtk_radio_button_new_with_label(NULL, "base of the initial value");
+	v->labelSrc = gtk_radio_button_new_with_label(NULL, "base of the initial value\nmin 2\nmax 36");
 	v->labelNumber = gtk_radio_button_new_with_label(NULL, "value to convert");
 	v->labelError = gtk_label_new("no error");
 	v->hboxResult = gtk_hbox_new(TRUE, 3);
@@ -41,6 +41,10 @@ Vue_t *creer_vue(Modele_t *m){
 		else fill_box(v->vboxBase[2], 2, v->labelBase[i], v->labelResult[i]);
 	}
 	fill_box(v->hboxResult, 3, v->vboxBase[0], v->vboxBase[1], v->vboxBase[2]);
+	v->hboxNumericNumber = gtk_hbox_new(FALSE, 0);
+	for(int i = 0; i < 6; i++) v->vboxNumericNumber[i] = gtk_vbox_new(FALSE, 0);
+
+
 
 	return v;
 }

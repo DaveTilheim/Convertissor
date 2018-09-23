@@ -16,6 +16,8 @@ typedef struct{
 	GtkWidget *entryNumber;
 	GtkWidget *buttonConvert;
 	GtkWidget *buttonQuit;
+	GtkWidget *buttonNumericNumber[MAX_BASE];
+	GtkWidget *buttonClearNumericNumber;
 
 }Controleur_t;
 
@@ -42,6 +44,8 @@ void destroy_controleur(Controleur_t *c);
 
 void convert(GtkWidget *w, gpointer pData);
 void select_base(GtkWidget *w, gpointer pData);
+void activate_numeric_button(GtkWidget *w, gpointer pData);
+void clear_numeric(GtkWidget *w, gpointer pData);
 
 
 #endif

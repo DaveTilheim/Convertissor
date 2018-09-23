@@ -30,8 +30,8 @@ int main(int argc, char **argv){
 	g_signal_connect(G_OBJECT(c->buttonConvert), "clicked", G_CALLBACK(convert), c);
 	g_signal_connect(G_OBJECT(c->buttonQuit), "clicked", G_CALLBACK(gtk_main_quit), NULL);
 	for(int i = 0; i < MAX_BASE-1; i++) g_signal_connect(G_OBJECT(v->labelResult[i]), "clicked", G_CALLBACK(select_base), c);
-	fill_box(v->vboxWidget, 4, v->labelSrc, c->spinSrcBase,
-	v->labelNumber, c->entryNumber);
+	fill_box(v->vboxWidget, 5, v->labelSrc, c->spinSrcBase,
+	v->labelNumber, v->hboxNumericNumber, c->entryNumber);
 	fill_box(v->hboxWidget, 3, v->vboxWidget, gtk_vseparator_new(), v->hboxResult);
 	fill_box(v->vboxAll, 5, v->hboxWidget, gtk_hseparator_new(), c->buttonConvert, v->labelError, c->buttonQuit);
 	gtk_container_add(GTK_CONTAINER(v->window), v->vboxAll);

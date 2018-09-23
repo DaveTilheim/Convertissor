@@ -21,6 +21,8 @@ typedef struct{
 	GtkWidget *vboxBase[3];
 	GtkWidget *labelResult[MAX_BASE-1];
 	GtkWidget *labelBase[MAX_BASE-1];
+	GtkWidget *hboxNumericNumber;
+	GtkWidget *vboxNumericNumber[6];
 	
 }Vue_t;
 
