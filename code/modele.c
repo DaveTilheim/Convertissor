@@ -72,8 +72,6 @@ static void set_char_final_number(Modele_t *m, int k){
 		new[0] = 'A'+k-10;
 		strcat(m->numberConvert, new);
 	}
-	printf("%s\n", m->numberConvert);
-
 }
 
 static void base10_to_base_dest(Modele_t *m, unsigned long numb10){

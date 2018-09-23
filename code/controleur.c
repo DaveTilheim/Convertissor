@@ -19,9 +19,9 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 	c->m = m;
 	c->v = v;
 	c->spinSrcBase = gtk_spin_button_new_with_range((float)MIN_BASE, (float)MAX_BASE, 1.0);
-	c->spinDestBase = gtk_spin_button_new_with_range((float)MIN_BASE, (float)MAX_BASE, 1.0);
 	c->entryNumber = gtk_entry_new_with_max_length(MAX_BIT);
 	c->buttonConvert = gtk_button_new_with_label("convert");
+	c->buttonQuit = gtk_button_new_with_label("QUIT");
 
 
 	return c;
@@ -30,11 +30,9 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 void convert(GtkWidget *w, gpointer pData){
 	Controleur_t *c = (Controleur_t *) pData;
 	unsigned srcv = (unsigned)gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(c->spinSrcBase));
-	unsigned destv = (unsigned)gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(c->spinDestBase));
 	char number[MAX_BIT+1];
 	strcpy(number, (char *)gtk_entry_get_text(GTK_ENTRY(c->entryNumber)));
-
-	set_bases(c->m, srcv, destv);
+	set_bases(c->m, srcv, 0);
 	switch(number_error(number)){
 		case 1:
 			set_message(c->v, "no number in the number field");
@@ -50,8 +48,16 @@ void convert(GtkWidget *w, gpointer pData){
 		set_message(c->v, "bad value for the src base");
 		return;
 	}
-	run_convertion(c->m);
-	set_message(c->v, c->m->numberConvert);
+	for(int base = 2; base <= MAX_BASE; base++){
+		set_bases(c->m, srcv, base);
+		run_convertion(c->m);
+		set_result(c->v, base, c->m->numberConvert);
+	}
+}
+
+void select_base(GtkWidget *w, gpointer pData){
+	Controleur_t *c = (Controleur_t *) pData;
+	set_message(c->v, (char*)gtk_button_get_label(GTK_BUTTON(w)));
 }
 
 void destroy_controleur(Controleur_t *c){

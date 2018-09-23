@@ -11,11 +11,16 @@ typedef struct{
 
 	Modele_t *m; /*!< the modele of the app */
 	GtkWidget *window;
+	GtkWidget *vboxWidget;
+	GtkWidget *hboxWidget;
 	GtkWidget *vboxAll;
 	GtkWidget *labelSrc;
-	GtkWidget *labelDest;
 	GtkWidget *labelNumber;
-	GtkWidget *labelResult;
+	GtkWidget *labelError;
+	GtkWidget *hboxResult;
+	GtkWidget *vboxBase[3];
+	GtkWidget *labelResult[MAX_BASE-1];
+	GtkWidget *labelBase[MAX_BASE-1];
 	
 }Vue_t;
 
@@ -39,5 +44,6 @@ Vue_t *creer_vue(Modele_t *m);
 void destroy_vue(Vue_t *v);
 
 void set_message(Vue_t *v, char *message);
+void set_result(Vue_t *v, unsigned base, char *result);
 
 #endif

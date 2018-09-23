@@ -13,9 +13,9 @@ typedef struct{
 	Vue_t *v; /*!< the vue of the app */
 	Modele_t *m; /*!< the modele of the app */
 	GtkWidget *spinSrcBase;
-	GtkWidget *spinDestBase;
 	GtkWidget *entryNumber;
 	GtkWidget *buttonConvert;
+	GtkWidget *buttonQuit;
 
 }Controleur_t;
 
@@ -41,6 +41,7 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m);
 void destroy_controleur(Controleur_t *c);
 
 void convert(GtkWidget *w, gpointer pData);
+void select_base(GtkWidget *w, gpointer pData);
 
 
 #endif
