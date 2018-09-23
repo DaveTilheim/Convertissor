@@ -19,6 +19,7 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 	c->m = m;
 	c->v = v;
 	c->spinSrcBase = gtk_spin_button_new_with_range((float)MIN_BASE, (float)MAX_BASE, 1.0);
+	g_signal_connect(G_OBJECT(c->spinSrcBase), "value-changed", G_CALLBACK(disable_part_of_numeric), c);
 	c->entryNumber = gtk_entry_new_with_max_length(MAX_BIT);
 	c->buttonConvert = gtk_button_new_with_label("convert");
 	c->buttonQuit = gtk_button_new_with_label("QUIT");
@@ -28,6 +29,7 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 		else label[0] = 'A'+i-10;
 		label[1] = '\0';
 		c->buttonNumericNumber[i] = gtk_button_new_with_label(label);
+		if(i != 0 && i != 1) gtk_widget_set_sensitive(c->buttonNumericNumber[i], FALSE);
 		g_signal_connect(G_OBJECT(c->buttonNumericNumber[i]), "clicked", G_CALLBACK(activate_numeric_button), c);
 	}
 	int n = 0;
@@ -54,9 +56,11 @@ void convert(GtkWidget *w, gpointer pData){
 	switch(number_error(number)){
 		case 1:
 			set_message(c->v, "no number in the number field");
+			fprintf(stderr, "\a");
 			return;
 		case 2:
 			set_message(c->v, "space in the number field");
+			fprintf(stderr, "\a");
 			return;
 
 		default:
@@ -64,6 +68,7 @@ void convert(GtkWidget *w, gpointer pData){
 	}
 	if(!set_number(c->m, number)){
 		set_message(c->v, "bad value for the src base");
+		fprintf(stderr, "\a");
 		return;
 	}
 	for(int base = 2; base <= MAX_BASE; base++){
@@ -96,5 +101,18 @@ void destroy_controleur(Controleur_t *c){
 
 	free(c);
 }
+
+void disable_part_of_numeric(GtkWidget *w, gpointer pData){
+	Controleur_t *c = (Controleur_t *) pData;
+	unsigned stop = (unsigned)gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(c->spinSrcBase));
+	for(int i = 0; i < MAX_BASE; i++){
+		if(i >= stop) gtk_widget_set_sensitive(c->buttonNumericNumber[i], FALSE);
+		else gtk_widget_set_sensitive(c->buttonNumericNumber[i], TRUE);
+	}
+}
+
+
+
+
 
 

@@ -20,7 +20,7 @@ Vue_t *creer_vue(Modele_t *m){
 	v->window = create_window_with_title("convertissor");
 	v->m = m;
 	v->vboxAll = gtk_vbox_new(FALSE, 0);
-	v->vboxWidget = gtk_vbox_new(TRUE, 5);
+	v->vboxWidget = gtk_vbox_new(TRUE, 3);
 	v->hboxWidget = gtk_hbox_new(FALSE, 0);
 	v->labelSrc = gtk_radio_button_new_with_label(NULL, "base of the initial value\nmin 2\nmax 36");
 	v->labelNumber = gtk_radio_button_new_with_label(NULL, "value to convert");
