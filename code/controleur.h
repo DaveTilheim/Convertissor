@@ -18,6 +18,8 @@ typedef struct{
 	GtkWidget *buttonQuit;
 	GtkWidget *buttonNumericNumber[MAX_BASE];
 	GtkWidget *buttonClearNumericNumber;
+	GtkWidget *checkButtonSignedMode;
+	GtkWidget *checkButtonFloatMode;
 
 }Controleur_t;
 

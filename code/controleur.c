@@ -19,11 +19,12 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 	c->m = m;
 	c->v = v;
 	c->spinSrcBase = gtk_spin_button_new_with_range((float)MIN_BASE, (float)MAX_BASE, 1.0);
-	g_signal_connect(G_OBJECT(c->spinSrcBase), "value-changed", G_CALLBACK(disable_part_of_numeric), c);
 	c->entryNumber = gtk_entry_new_with_max_length(MAX_BIT);
-	g_signal_connect(G_OBJECT(c->entryNumber), "activate", G_CALLBACK(able_disable_clear), c);
 	c->buttonConvert = gtk_button_new_with_label("convert");
 	c->buttonQuit = gtk_button_new_with_label("QUIT");
+	c->buttonClearNumericNumber = gtk_button_new_with_label("clear");
+	c->checkButtonSignedMode = gtk_check_button_new_with_label("signed");
+	c->checkButtonFloatMode = gtk_check_button_new_with_label("float");
 	for(int i = 0; i < MAX_BASE; i++){
 		char label[2];
 		if(i < 10) label[0] = '0'+i;
@@ -33,15 +34,6 @@ Controleur_t *creer_controleur(Vue_t *v, Modele_t *m){
 		if(i != 0 && i != 1) gtk_widget_set_sensitive(c->buttonNumericNumber[i], FALSE);
 		g_signal_connect(G_OBJECT(c->buttonNumericNumber[i]), "clicked", G_CALLBACK(activate_numeric_button), c);
 	}
-	int n = 0;
-	for(int i = 0; i < 6; i++){
-		for(int j = 0; j < 6; j++)
-			fill_box(c->v->vboxNumericNumber[i], 1, c->buttonNumericNumber[n++]);
-		fill_box(c->v->hboxNumericNumber, 1, c->v->vboxNumericNumber[i]);
-	}
-	c->buttonClearNumericNumber = gtk_button_new_with_label("clear");
-	g_signal_connect(G_OBJECT(c->buttonClearNumericNumber), "clicked", G_CALLBACK(clear_numeric), c);
-	fill_box(c->v->hboxNumericNumber, 1, c->buttonClearNumericNumber);
 	gtk_widget_set_sensitive(c->buttonClearNumericNumber, FALSE);
 
 	return c;
@@ -124,6 +116,11 @@ void able_disable_clear(GtkWidget *w, gpointer pData){
 		gtk_widget_set_sensitive(c->buttonClearNumericNumber, TRUE);
 
 }
+
+
+
+
+
 
 
 

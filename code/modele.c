@@ -24,18 +24,20 @@ void set_bases(Modele_t *m, unsigned srcv, unsigned destv){
 }
 
 int number_error(char *number){
-	if(!strlen(number)) return 1;
+	int size = strlen(number);
+	if(!size) return 1;
 	int no0 = 0;
-	for(int i = 0; i < strlen(number); i++)
+	for(int i = 0; i < size; i++){
 		if(number[i] != '0') no0 = 1;
-	if(!no0) return 3;
-	for(int i = 0; i < strlen(number); i++)
 		if(number[i] == ' ') return 2;
+	}
+	if(!no0) return 3;
 	return 0;
 }
 
 int set_number(Modele_t *m, char *number){
-	for(int i = 0; i < strlen(number); i++){
+	int size = strlen(number);
+	for(int i = 0; i < size; i++){
 		int exists = 0;
 		for(int j = 0; j < m->baseSrc; j++)
 			if(number[i] == BASE36A[j] || number[i] == BASE36B[j]){
@@ -55,10 +57,10 @@ static unsigned short get_position_from_char_base(char c, unsigned short baseSrc
 }
 
 static unsigned long get_base10_from_number_to_convert(Modele_t *m){
-	unsigned short len = strlen(m->numberToConvert);
+	unsigned short size = strlen(m->numberToConvert);
 	unsigned long numb10 = 0;
 	int pos = 0;
-	for(int i = len-1; i >= 0; i--){
+	for(int i = size-1; i >= 0; i--){
 		unsigned short position = get_position_from_char_base(m->numberToConvert[i], m->baseSrc);
 		numb10 += position * pow(m->baseSrc, pos);
 		pos++;
@@ -66,12 +68,24 @@ static unsigned long get_base10_from_number_to_convert(Modele_t *m){
 	return numb10;
 }
 
+static void reverse_number(Modele_t *m){
+	unsigned short size = strlen(m->numberConvert);
+	char newNumber[MAX_BIT-1];
+	int i ; 
+	for(i = 0; i < size; i++)
+		newNumber[i] = m->numberConvert[size-1-i];
+	newNumber[i] = '\0';
+	strcpy(m->numberConvert, newNumber);
+}
+
 static void set_char_final_number(Modele_t *m, int k){
 	char new[2];
-	new[0]='0'+k;
 	if(k>MAX_BASE) return;
-	if(k >= 0 && k <= 9) strcat(m->numberConvert, new);
-	if(k > 9){
+	if(k >= 0 && k <= 9){
+		new[0]='0'+k;
+		strcat(m->numberConvert, new);
+	}
+	else{
 		new[0] = 'A'+k-10;
 		strcat(m->numberConvert, new);
 	}
@@ -79,16 +93,11 @@ static void set_char_final_number(Modele_t *m, int k){
 
 static void base10_to_base_dest(Modele_t *m, unsigned long numb10){
 	strcpy(m->numberConvert, "");
-	unsigned short exp = 0;
-	while(pow(m->baseDest, exp) <= numb10) exp++; exp--;
-	for(int i = exp; i >= 0; i--){
-		unsigned long value = pow(m->baseDest, i);
-		int k;
-		for(k = 0; ; k++)
-			if(value*k > numb10) break;
-		numb10 -= value*(k-1);
-		set_char_final_number(m, k-1);
+	while(numb10 > 0){
+		set_char_final_number(m, numb10%m->baseDest);
+		numb10 /= m->baseDest;
 	}
+	reverse_number(m);
 }
 
 int run_convertion(Modele_t *m){

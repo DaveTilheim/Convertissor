@@ -42,5 +42,7 @@ int number_error(char *number);
 int run_convertion(Modele_t *m);
 void set_char_number(Modele_t *m, char *c);
 void set_filemode(Modele_t *m);
+void active_signed_mode_m(Modele_t *m);
+void active_float_mode_m(Modele_t *m);
 
 #endif
